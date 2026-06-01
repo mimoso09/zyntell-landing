@@ -44,12 +44,16 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="relative">
-          {/* Connecting line (desktop) */}
-          <div
-            className="hidden lg:block absolute top-10 left-0 right-0 h-px"
+          {/* Connecting line (desktop) - animates left to right */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.6, ease: "easeOut", delay: 0.4 }}
+            className="hidden lg:block absolute top-10 left-0 right-0 h-px origin-left"
             style={{
               background:
-                "linear-gradient(90deg, transparent 6%, rgba(59,130,246,0.3) 20%, rgba(139,92,246,0.3) 50%, rgba(34,211,238,0.3) 80%, transparent 94%)",
+                "linear-gradient(90deg, transparent 6%, rgba(59,130,246,0.6) 20%, rgba(139,92,246,0.6) 50%, rgba(34,211,238,0.6) 80%, transparent 94%)",
+              boxShadow: "0 0 8px rgba(59,130,246,0.4)",
             }}
           />
 

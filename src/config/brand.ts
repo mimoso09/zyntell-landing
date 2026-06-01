@@ -9,8 +9,8 @@ export const brand = {
     "Creamos asistentes de IA para WhatsApp que transforman la atención al cliente.",
 
   contact: {
-    whatsapp: "#",
-    email: "hola@zyntell.com",
+    whatsapp: "https://wa.me/523324913241?text=hola%20quiero%20probar%20una%20demo%20de%20como%20se%20veria%20en%20mi%20negocio",
+    email: "soporte@zyntell.com.mx",
     calendly: "#",
   },
 
@@ -34,86 +34,54 @@ export const brand = {
 
   problems: {
     title: "Tu negocio pierde clientes cuando tarda en responder",
-    subtitle:
-      "Cada mensaje sin contestar es una oportunidad que se va. Así se ve el problema que enfrentan la mayoría de los negocios locales.",
+    subtitle: "Cada mensaje sin contestar es una oportunidad que se va.",
     items: [
       {
         icon: "MessageX",
         title: "Mensajes sin contestar",
-        desc: "Clientes que preguntan y no reciben respuesta se van con la competencia.",
+        desc: "Clientes sin respuesta se van con la competencia.",
       },
       {
         icon: "CalendarX",
         title: "Citas olvidadas",
-        desc: "Sin un sistema de agenda, se pierden reservas y hay confusión de horarios.",
+        desc: "Sin agenda automática se pierden reservas y hay confusión.",
       },
       {
         icon: "RotateCcw",
         title: "Preguntas repetitivas",
-        desc: "Tu equipo responde lo mismo todos los días: precios, horarios, servicios.",
-      },
-      {
-        icon: "UserX",
-        title: "Sin seguimiento",
-        desc: "Los clientes que preguntan y no agendan nunca vuelven a ser contactados.",
-      },
-      {
-        icon: "AlertCircle",
-        title: "Personal saturado",
-        desc: "Atender WhatsApp consume horas del equipo que podría dedicar a otras cosas.",
+        desc: "Tu equipo responde lo mismo todos los días: precios y horarios.",
       },
       {
         icon: "Shuffle",
-        title: "Conversaciones desordenadas",
-        desc: "Sin un dashboard, no sabes qué se habló, qué se prometió ni qué falta.",
+        title: "Sin control",
+        desc: "Sin un dashboard, no sabes qué se habló ni qué falta.",
       },
     ],
   },
 
   solutions: {
     title: "Un asistente de IA trabajando por tu negocio 24/7",
-    subtitle:
-      "No es solo un bot de respuestas. Es un sistema completo de atención al cliente automatizado, personalizado para tu negocio.",
+    subtitle: "No es solo un bot. Es un sistema completo de atención al cliente, personalizado para tu negocio.",
     items: [
       {
         icon: "MessageCircle",
-        title: "Respuestas automáticas por WhatsApp",
-        desc: "El asistente responde al instante, día y noche, con lenguaje natural.",
+        title: "Respuestas automáticas 24/7",
+        desc: "Atiende clientes al instante, día y noche, en lenguaje natural.",
       },
       {
         icon: "CalendarCheck",
         title: "Agenda de citas integrada",
-        desc: "Clientes pueden agendar, modificar o cancelar citas directamente en el chat.",
-      },
-      {
-        icon: "Calendar",
-        title: "Google Calendar conectado",
-        desc: "Cada cita se sincroniza automáticamente con el calendario del negocio.",
+        desc: "Clientes agendan, modifican y cancelan directo en el chat con sync a Google Calendar.",
       },
       {
         icon: "LayoutDashboard",
         title: "Dashboard privado",
-        desc: "Revisa todas las conversaciones, citas y métricas desde un panel exclusivo.",
+        desc: "Controla todas las conversaciones, citas y métricas desde un panel exclusivo.",
       },
       {
         icon: "UserCheck",
         title: "Modo IA / Humano",
         desc: "Toma el control cuando quieras. El asistente espera y retoma cuando tú lo indiques.",
-      },
-      {
-        icon: "ShieldCheck",
-        title: "Fallback si la IA falla",
-        desc: "Si la IA no sabe cómo responder, notifica al equipo para intervenir.",
-      },
-      {
-        icon: "BookOpen",
-        title: "Base de conocimiento personalizada",
-        desc: "Entrenado con tus servicios, precios, horarios y políticas exactas.",
-      },
-      {
-        icon: "Settings",
-        title: "Implementación por negocio",
-        desc: "Cada implementación es única. No usamos plantillas genéricas.",
       },
     ],
   },
@@ -283,31 +251,23 @@ export const brand = {
   faq: [
     {
       q: "¿Necesito cambiar mi número de WhatsApp?",
-      a: "No. Conectamos tu número de WhatsApp Business actual a nuestra plataforma. Tus clientes seguirán escribiendo al mismo número que ya conocen.",
+      a: "No. Conectamos tu número de WhatsApp Business actual. Tus clientes seguirán escribiendo al mismo número que ya conocen.",
     },
     {
       q: "¿La IA puede agendar citas automáticamente?",
-      a: "Sí. El asistente puede proponer horarios disponibles, confirmar citas con el cliente y sincronizarlas con tu Google Calendar en tiempo real.",
+      a: "Sí. El asistente propone horarios disponibles, confirma citas y las sincroniza con tu Google Calendar en tiempo real.",
     },
     {
       q: "¿Puedo intervenir manualmente en las conversaciones?",
-      a: "Absolutamente. El Modo Humano te permite tomar el control de cualquier conversación. El asistente se detiene y espera hasta que tú indiques que puede continuar.",
-    },
-    {
-      q: "¿Funciona para cualquier tipo de negocio?",
-      a: "Nos especializamos en negocios de servicio al cliente: barberías, estéticas, clínicas, dentistas, consultorios, restaurantes, inmobiliarias y servicios profesionales. Si no estás en esta lista, contáctanos y evaluamos tu caso.",
-    },
-    {
-      q: "¿Qué pasa si la IA no sabe cómo responder?",
-      a: "El sistema tiene un mecanismo de fallback. Si la IA detecta que no puede responder con precisión, notifica a tu equipo para que intervenga y no deje al cliente sin atención.",
+      a: "Absolutamente. El Modo Humano te permite tomar el control de cualquier conversación. El asistente espera hasta que tú indiques que puede continuar.",
     },
     {
       q: "¿Cuánto tarda la implementación?",
-      a: "La mayoría de las implementaciones están listas en menos de una semana. El tiempo exacto depende de la complejidad de los flujos y la cantidad de información a configurar.",
+      a: "La mayoría de las implementaciones están listas en menos de una semana, dependiendo de la complejidad de los flujos.",
     },
     {
-      q: "¿Puedo conectar Google Calendar?",
-      a: "Sí, el plan Profesional y Premium incluyen integración directa con Google Calendar. Las citas agendadas aparecen automáticamente en tu calendario con todos los detalles del cliente.",
+      q: "¿Qué pasa si la IA no sabe cómo responder?",
+      a: "El sistema tiene fallback automático: si la IA no puede responder con precisión, notifica a tu equipo para intervenir sin dejar al cliente sin atención.",
     },
   ],
 

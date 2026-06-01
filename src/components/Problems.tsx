@@ -61,7 +61,7 @@ export default function Problems() {
         </motion.div>
 
         {/* Cards grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
           {brand.problems.items.map((item, i) => {
             const Icon = iconMap[item.icon] ?? AlertCircle;
             return (
@@ -74,7 +74,7 @@ export default function Problems() {
                   y: -4,
                   transition: { duration: 0.2 },
                 }}
-                className="glass rounded-2xl p-6 group cursor-default"
+                className="glass rounded-2xl p-7 group cursor-default"
                 style={{
                   border: "1px solid rgba(239,68,68,0.1)",
                   transition: "border-color 0.3s, box-shadow 0.3s",

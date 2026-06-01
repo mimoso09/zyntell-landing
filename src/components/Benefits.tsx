@@ -1,7 +1,39 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { brand } from "@/config/brand";
+
+function CountUp({ metric, inView }: { metric: string; inView: boolean }) {
+  const [value, setValue] = useState(0);
+
+  const match = metric.match(/^([+\-]?)(\d+)(.*)$/);
+  const prefix = match?.[1] ?? "";
+  const target = match ? parseInt(match[2]) : 0;
+  const suffix = match?.[3] ?? "";
+  const isLiteral = !match;
+
+  useEffect(() => {
+    if (!inView || isLiteral) return;
+    setValue(0);
+    const duration = 1600;
+    const startTime = Date.now();
+    let rafId: number;
+
+    const update = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) rafId = requestAnimationFrame(update);
+    };
+
+    rafId = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafId);
+  }, [inView, target, isLiteral]);
+
+  if (isLiteral) return <>{metric}</>;
+  return <>{prefix}{value}{suffix}</>;
+}
 
 export default function Benefits() {
   const ref = useRef(null);
@@ -10,10 +42,12 @@ export default function Benefits() {
   return (
     <section className="relative py-24 overflow-hidden">
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[400px] pointer-events-none"
+        className="absolute inset-0 circuit-grid pointer-events-none opacity-50"
+      />
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(59,130,246,0.09) 0%, transparent 70%)",
           filter: "blur(80px)",
         }}
       />
@@ -33,31 +67,46 @@ export default function Benefits() {
           >
             {brand.benefits.title}
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-400 text-lg max-w-xl mx-auto">
             {brand.benefits.subtitle}
           </p>
         </motion.div>
 
-        {/* Metric cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {brand.benefits.items.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass rounded-2xl p-8 text-center relative overflow-hidden group"
+              initial={{ opacity: 0, scale: 0.8, y: 24 }}
+              animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.13, duration: 0.6, ease: "easeOut" }}
+              className="glass rounded-2xl p-8 text-center relative overflow-hidden group cursor-default"
               style={{ border: "1px solid rgba(59,130,246,0.15)" }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "rgba(59,130,246,0.5)";
+                el.style.boxShadow = "0 0 50px rgba(59,130,246,0.18), 0 0 0 1px rgba(59,130,246,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.borderColor = "rgba(59,130,246,0.15)";
+                el.style.boxShadow = "none";
+              }}
             >
+              {/* Radial glow on hover */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 style={{
-                  background:
-                    "radial-gradient(circle at 50% 100%, rgba(59,130,246,0.08) 0%, transparent 70%)",
+                  background: "radial-gradient(circle at 50% 100%, rgba(59,130,246,0.12) 0%, transparent 70%)",
                 }}
               />
+              {/* Top scan line on hover */}
               <div
-                className="text-5xl font-black mb-2"
+                className="absolute inset-x-0 top-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.8), transparent)" }}
+              />
+
+              <div
+                className="text-5xl font-black mb-2 tabular-nums number-glow"
                 style={{
                   background: "linear-gradient(135deg, #60a5fa, #c4b5fd)",
                   WebkitBackgroundClip: "text",
@@ -65,50 +114,13 @@ export default function Benefits() {
                   backgroundClip: "text",
                 }}
               >
-                {item.metric}
+                <CountUp metric={item.metric} inView={inView} />
               </div>
-              <div className="text-base font-semibold text-white mb-1">
-                {item.label}
-              </div>
+              <div className="text-base font-semibold text-white mb-1">{item.label}</div>
               <div className="text-sm text-slate-500">{item.desc}</div>
             </motion.div>
           ))}
         </div>
-
-        {/* Feature list */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="glass rounded-2xl p-8"
-          style={{ border: "1px solid rgba(255,255,255,0.07)" }}
-        >
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              "Responde clientes al instante, sin demoras",
-              "Agenda citas automáticamente con Google Calendar",
-              "Reduce la carga operativa del equipo",
-              "Mejora la experiencia del cliente en cada interacción",
-              "Centraliza todas las conversaciones en un dashboard",
-              "Escala sin necesidad de contratar más personal",
-            ].map((feat, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <div
-                  className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style={{
-                    background: "rgba(59,130,246,0.15)",
-                    border: "1px solid rgba(59,130,246,0.3)",
-                  }}
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                </div>
-                <span className="text-sm text-slate-300 leading-relaxed">
-                  {feat}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

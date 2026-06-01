@@ -106,12 +106,11 @@ export default function Hero() {
             >
               <motion.a
                 href={brand.contact.whatsapp}
-                whileHover={{ scale: 1.03, boxShadow: "0 0 30px rgba(59,130,246,0.5)" }}
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white"
+                className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white cta-glow"
                 style={{
                   background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-                  boxShadow: "0 0 20px rgba(59,130,246,0.35)",
                 }}
               >
                 {brand.hero.cta1}
@@ -167,12 +166,24 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="glass-strong rounded-2xl overflow-hidden"
+                className="glass-strong rounded-2xl overflow-hidden relative"
                 style={{
                   boxShadow:
                     "0 0 0 1px rgba(59,130,246,0.2), 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(59,130,246,0.08)",
                 }}
               >
+                {/* Scan line sweep */}
+                <motion.div
+                  className="absolute left-0 right-0 pointer-events-none"
+                  style={{
+                    height: "28%",
+                    background:
+                      "linear-gradient(transparent, rgba(59,130,246,0.04), rgba(59,130,246,0.07), rgba(59,130,246,0.04), transparent)",
+                    zIndex: 10,
+                  }}
+                  animate={{ top: ["-30%", "130%"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear", repeatDelay: 5 }}
+                />
                 {/* Dashboard header */}
                 <div
                   className="px-4 py-3 flex items-center gap-2"

@@ -81,12 +81,11 @@ export default function FinalCTA() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.a
               href={brand.contact.whatsapp}
-              whileHover={{ scale: 1.04, boxShadow: "0 0 40px rgba(59,130,246,0.55)" }}
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white cta-glow"
               style={{
                 background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-                boxShadow: "0 0 24px rgba(59,130,246,0.4)",
               }}
             >
               {brand.finalCta.cta}
@@ -94,7 +93,7 @@ export default function FinalCTA() {
             </motion.a>
 
             <motion.a
-              href={brand.contact.email}
+              href={`mailto:${brand.contact.email}`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 hover:text-white transition-colors"

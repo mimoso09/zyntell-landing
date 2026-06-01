@@ -8,7 +8,6 @@ import DemoChat from "@/components/DemoChat";
 import UseCases from "@/components/UseCases";
 import Benefits from "@/components/Benefits";
 import Pricing from "@/components/Pricing";
-import Trust from "@/components/Trust";
 import FAQ from "@/components/FAQ";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
@@ -37,8 +36,6 @@ export default function Home() {
           <Benefits />
           <div className="section-divider mx-auto max-w-7xl" />
           <Pricing />
-          <div className="section-divider mx-auto max-w-7xl" />
-          <Trust />
           <div className="section-divider mx-auto max-w-7xl" />
           <FAQ />
           <div className="section-divider mx-auto max-w-7xl" />

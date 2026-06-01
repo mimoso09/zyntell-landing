@@ -23,8 +23,8 @@ export default function AnimatedBackground() {
     let w = (canvas.width = window.innerWidth);
     let h = (canvas.height = window.innerHeight);
 
-    const COUNT = Math.min(70, Math.floor((w * h) / 18000));
-    const MAX_DIST = 140;
+    const COUNT = Math.min(110, Math.floor((w * h) / 12000));
+    const MAX_DIST = 160;
     const particles: Particle[] = Array.from({ length: COUNT }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
@@ -37,6 +37,7 @@ export default function AnimatedBackground() {
     function tick() {
       ctx!.clearRect(0, 0, w, h);
 
+      let pidx = 0;
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -45,8 +46,10 @@ export default function AnimatedBackground() {
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(99,179,255,${p.alpha})`;
+        const color = pidx % 3 === 0 ? "139,92,246" : "99,179,255";
+        ctx!.fillStyle = `rgba(${color},${p.alpha})`;
         ctx!.fill();
+        pidx++;
       }
 
       for (let i = 0; i < particles.length; i++) {
@@ -55,12 +58,13 @@ export default function AnimatedBackground() {
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
-            const opacity = (1 - dist / MAX_DIST) * 0.18;
+            const opacity = (1 - dist / MAX_DIST) * 0.22;
             ctx!.beginPath();
             ctx!.moveTo(particles[i].x, particles[i].y);
             ctx!.lineTo(particles[j].x, particles[j].y);
-            ctx!.strokeStyle = `rgba(99,179,255,${opacity})`;
-            ctx!.lineWidth = 0.6;
+            const lineColor = (i + j) % 4 === 0 ? "139,92,246" : "99,179,255";
+            ctx!.strokeStyle = `rgba(${lineColor},${opacity})`;
+            ctx!.lineWidth = 0.7;
             ctx!.stroke();
           }
         }
