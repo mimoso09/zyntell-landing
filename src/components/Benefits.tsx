@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { brand } from "@/config/brand";
 
-function CountUp({ metric, inView }: { metric: string; inView: boolean }) {
+function CountUp({ metric, inView, delay = 0 }: { metric: string; inView: boolean; delay?: number }) {
   const [value, setValue] = useState(0);
 
   const match = metric.match(/^([+\-]?)(\d+)(.*)$/);
@@ -15,21 +15,27 @@ function CountUp({ metric, inView }: { metric: string; inView: boolean }) {
   useEffect(() => {
     if (!inView || isLiteral) return;
     setValue(0);
-    const duration = 1600;
-    const startTime = Date.now();
+    const duration = 3800;
     let rafId: number;
 
-    const update = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(eased * target));
-      if (progress < 1) rafId = requestAnimationFrame(update);
-    };
+    const timeout = setTimeout(() => {
+      const startTime = Date.now();
+      const update = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out-quad: más suave y gradual que cubic
+        const eased = progress * (2 - progress);
+        setValue(Math.round(eased * target));
+        if (progress < 1) rafId = requestAnimationFrame(update);
+      };
+      rafId = requestAnimationFrame(update);
+    }, delay);
 
-    rafId = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(rafId);
-  }, [inView, target, isLiteral]);
+    return () => {
+      clearTimeout(timeout);
+      cancelAnimationFrame(rafId);
+    };
+  }, [inView, target, isLiteral, delay]);
 
   if (isLiteral) return <>{metric}</>;
   return <>{prefix}{value}{suffix}</>;
@@ -114,7 +120,7 @@ export default function Benefits() {
                   backgroundClip: "text",
                 }}
               >
-                <CountUp metric={item.metric} inView={inView} />
+                <CountUp metric={item.metric} inView={inView} delay={i * 220} />
               </div>
               <div className="text-base font-semibold text-white mb-1">{item.label}</div>
               <div className="text-sm text-slate-500">{item.desc}</div>

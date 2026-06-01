@@ -1,3 +1,5 @@
+import PageLoader from "@/components/PageLoader";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -15,6 +17,8 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <PageLoader />
+      <WhatsAppFloat />
       {/* Fixed canvas background with particle network */}
       <AnimatedBackground />
 
