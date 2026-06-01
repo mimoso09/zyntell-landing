@@ -9,7 +9,7 @@ export const brand = {
     "Creamos asistentes de IA para WhatsApp que transforman la atención al cliente.",
 
   contact: {
-    whatsapp: "https://wa.me/523324913241?text=hola%20quiero%20probar%20una%20demo%20de%20como%20se%20veria%20en%20mi%20negocio",
+    whatsapp: "https://wa.me/523324913241?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Zyntell%20para%20automatizar%20la%20atenci%C3%B3n%20de%20mi%20negocio%20con%20IA.",
     email: "soporte@zyntell.com.mx",
     calendly: "#",
   },

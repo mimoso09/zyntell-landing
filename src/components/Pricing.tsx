@@ -1,12 +1,25 @@
 "use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { Check, Zap, ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Check, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { brand } from "@/config/brand";
+
+const WHATSAPP_NUMBER = "523324913241";
+
+const createWhatsAppLink = (message: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
+const planMessages: Record<string, string> = {
+  Básico:
+    "Hola, quiero cotizar el Plan Básico de Zyntell para automatizar la atención por WhatsApp de mi negocio.",
+  Profesional:
+    "Hola, quiero cotizar el Plan Profesional de Zyntell con automatización por WhatsApp, agenda de citas y Google Calendar.",
+};
 
 export default function Pricing() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [selected, setSelected] = useState("Profesional");
 
   return (
     <section
@@ -46,152 +59,206 @@ export default function Pricing() {
           <p className="text-slate-400 text-lg max-w-xl mx-auto">
             {brand.pricing.subtitle}
           </p>
+          <p className="text-slate-500 text-sm mt-3">
+            Selecciona el plan que mejor se adapte a tu negocio
+          </p>
         </motion.div>
 
         {/* Two-plan grid */}
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto items-start">
-          {brand.pricing.plans.map((plan, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 28 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.15, duration: 0.55 }}
-              className="relative rounded-2xl overflow-hidden"
-              style={{
-                background: plan.highlight
-                  ? "linear-gradient(145deg, rgba(59,130,246,0.13), rgba(139,92,246,0.13))"
-                  : "rgba(255,255,255,0.03)",
-                border: plan.highlight
-                  ? "1px solid rgba(59,130,246,0.4)"
-                  : "1px solid rgba(255,255,255,0.08)",
-                boxShadow: plan.highlight
-                  ? "0 0 50px rgba(59,130,246,0.18), 0 0 100px rgba(139,92,246,0.08)"
-                  : "none",
-                transform: plan.highlight ? "scale(1.025)" : "scale(1)",
-              }}
-            >
-              {/* Top gradient line for highlighted plan */}
-              {plan.highlight && (
+        <div className="grid sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {brand.pricing.plans.map((plan, i) => {
+            const isSelected = selected === plan.name;
+            const whatsappLink = createWhatsAppLink(planMessages[plan.name] ?? "");
+
+            return (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 28, scale: 1 }}
+                animate={
+                  inView
+                    ? { opacity: 1, y: 0, scale: isSelected ? 1.03 : 1 }
+                    : {}
+                }
+                transition={{
+                  opacity: { duration: 0.55, delay: i * 0.15 },
+                  y: { duration: 0.55, delay: i * 0.15 },
+                  scale: { duration: 0.35, ease: "easeOut", delay: 0 },
+                }}
+                onClick={() => setSelected(plan.name)}
+                className="relative rounded-2xl overflow-hidden cursor-pointer select-none"
+                style={{
+                  background: isSelected
+                    ? "linear-gradient(145deg, rgba(59,130,246,0.16), rgba(139,92,246,0.16))"
+                    : "rgba(255,255,255,0.03)",
+                  border: isSelected
+                    ? "1px solid rgba(59,130,246,0.55)"
+                    : "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: isSelected
+                    ? "0 0 60px rgba(59,130,246,0.22), 0 0 120px rgba(139,92,246,0.1)"
+                    : "none",
+                  transition:
+                    "background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
+                }}
+              >
+                {/* Top gradient accent line */}
                 <div
                   className="absolute top-0 inset-x-0 h-0.5"
                   style={{
-                    background: "linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee)",
+                    background:
+                      "linear-gradient(90deg, #3b82f6, #8b5cf6, #22d3ee)",
                     boxShadow: "0 0 10px rgba(59,130,246,0.5)",
-                  }}
-                />
-              )}
-
-              <div className="p-8">
-                {/* Badge */}
-                {plan.badge && (
-                  <div className="flex justify-center mb-5">
-                    <span
-                      className="text-xs font-semibold px-4 py-1.5 rounded-full"
-                      style={{
-                        background: "rgba(59,130,246,0.15)",
-                        border: "1px solid rgba(59,130,246,0.35)",
-                        color: "#93c5fd",
-                        boxShadow: "0 0 12px rgba(59,130,246,0.2)",
-                      }}
-                    >
-                      {plan.badge}
-                    </span>
-                  </div>
-                )}
-
-                {/* Plan name */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: plan.highlight
-                        ? "linear-gradient(135deg, #3b82f6, #8b5cf6)"
-                        : "rgba(255,255,255,0.06)",
-                      boxShadow: plan.highlight
-                        ? "0 0 20px rgba(59,130,246,0.35)"
-                        : "none",
-                    }}
-                  >
-                    <Zap
-                      size={17}
-                      className={plan.highlight ? "text-white" : "text-slate-400"}
-                      fill={plan.highlight ? "currentColor" : "none"}
-                    />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-sm text-slate-400 mb-6 leading-relaxed">
-                  {plan.description}
-                </p>
-
-                {/* Divider */}
-                <div
-                  className="h-px mb-6"
-                  style={{
-                    background: plan.highlight
-                      ? "rgba(59,130,246,0.2)"
-                      : "rgba(255,255,255,0.07)",
+                    opacity: isSelected ? 1 : 0,
+                    transition: "opacity 0.35s ease",
                   }}
                 />
 
-                {/* Features */}
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feat, j) => (
-                    <li key={j} className="flex items-start gap-3">
-                      <div
-                        className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                <div className="p-8">
+                  {/* Badges row */}
+                  <div className="flex flex-wrap items-center gap-2 mb-5 min-h-[28px]">
+                    <AnimatePresence mode="popLayout">
+                      {isSelected && (
+                        <motion.span
+                          key={`sel-${plan.name}`}
+                          initial={{ opacity: 0, scale: 0.8, x: -6 }}
+                          animate={{ opacity: 1, scale: 1, x: 0 }}
+                          exit={{ opacity: 0, scale: 0.8, x: -6 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5"
+                          style={{
+                            background: "rgba(16,185,129,0.15)",
+                            border: "1px solid rgba(16,185,129,0.35)",
+                            color: "#6ee7b7",
+                          }}
+                        >
+                          <CheckCircle2 size={11} strokeWidth={2.5} />
+                          Seleccionado
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+
+                    {plan.badge && (
+                      <span
+                        className="text-xs font-semibold px-3 py-1 rounded-full"
                         style={{
-                          background: plan.highlight
-                            ? "rgba(59,130,246,0.2)"
-                            : "rgba(255,255,255,0.05)",
-                          border: plan.highlight
-                            ? "1px solid rgba(59,130,246,0.4)"
-                            : "1px solid rgba(255,255,255,0.1)",
+                          background: "rgba(59,130,246,0.15)",
+                          border: "1px solid rgba(59,130,246,0.35)",
+                          color: "#93c5fd",
+                          boxShadow: isSelected
+                            ? "0 0 10px rgba(59,130,246,0.2)"
+                            : "none",
+                          transition: "box-shadow 0.35s ease",
                         }}
                       >
-                        <Check
-                          size={11}
-                          className={plan.highlight ? "text-blue-400" : "text-slate-400"}
-                          strokeWidth={3}
-                        />
-                      </div>
-                      <span className="text-sm text-slate-300 leading-relaxed">
-                        {feat}
+                        {plan.badge}
                       </span>
-                    </li>
-                  ))}
-                </ul>
+                    )}
+                  </div>
 
-                {/* CTA button */}
-                <motion.a
-                  href={brand.contact.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="flex items-center justify-center gap-2 w-full text-center py-3.5 rounded-xl text-sm font-semibold transition-all"
-                  style={
-                    plan.highlight
-                      ? {
-                          background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
-                          color: "white",
-                          boxShadow: "0 0 24px rgba(59,130,246,0.35)",
-                        }
-                      : {
-                          background: "rgba(255,255,255,0.05)",
-                          border: "1px solid rgba(255,255,255,0.1)",
-                          color: "#cbd5e1",
-                        }
-                  }
-                >
-                  {plan.cta}
-                  <ArrowRight size={14} />
-                </motion.a>
-              </div>
-            </motion.div>
-          ))}
+                  {/* Plan name row */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: isSelected
+                          ? "linear-gradient(135deg, #3b82f6, #8b5cf6)"
+                          : "rgba(255,255,255,0.06)",
+                        boxShadow: isSelected
+                          ? "0 0 20px rgba(59,130,246,0.4)"
+                          : "none",
+                        transition:
+                          "background 0.35s ease, box-shadow 0.35s ease",
+                      }}
+                    >
+                      <Zap
+                        size={17}
+                        className={isSelected ? "text-white" : "text-slate-400"}
+                        fill={isSelected ? "currentColor" : "none"}
+                      />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-slate-400 mb-6 leading-relaxed">
+                    {plan.description}
+                  </p>
+
+                  {/* Divider */}
+                  <div
+                    className="h-px mb-6"
+                    style={{
+                      background: isSelected
+                        ? "rgba(59,130,246,0.25)"
+                        : "rgba(255,255,255,0.07)",
+                      transition: "background 0.35s ease",
+                    }}
+                  />
+
+                  {/* Features */}
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feat, j) => (
+                      <li key={j} className="flex items-start gap-3">
+                        <div
+                          className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{
+                            background: isSelected
+                              ? "rgba(59,130,246,0.2)"
+                              : "rgba(255,255,255,0.05)",
+                            border: isSelected
+                              ? "1px solid rgba(59,130,246,0.4)"
+                              : "1px solid rgba(255,255,255,0.1)",
+                            transition:
+                              "background 0.35s ease, border-color 0.35s ease",
+                          }}
+                        >
+                          <Check
+                            size={11}
+                            className={
+                              isSelected ? "text-blue-400" : "text-slate-400"
+                            }
+                            strokeWidth={3}
+                          />
+                        </div>
+                        <span className="text-sm text-slate-300 leading-relaxed">
+                          {feat}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA button — stops propagation so card onClick doesn't fire */}
+                  <motion.a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-sm font-semibold"
+                    style={
+                      isSelected
+                        ? {
+                            background:
+                              "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                            color: "white",
+                            boxShadow: "0 0 24px rgba(59,130,246,0.35)",
+                            transition: "box-shadow 0.35s ease",
+                          }
+                        : {
+                            background: "rgba(255,255,255,0.05)",
+                            border: "1px solid rgba(255,255,255,0.1)",
+                            color: "#cbd5e1",
+                            transition: "background 0.35s ease",
+                          }
+                    }
+                  >
+                    {plan.cta}
+                    <ArrowRight size={14} />
+                  </motion.a>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Advanced note */}
@@ -209,8 +276,11 @@ export default function Pricing() {
             }}
           >
             <span>
-              <span className="text-white font-semibold">¿Necesitas algo más avanzado?</span>
-              {" "}Creamos automatizaciones personalizadas para negocios con procesos especiales.
+              <span className="text-white font-semibold">
+                ¿Necesitas algo más avanzado?
+              </span>{" "}
+              Creamos automatizaciones personalizadas para negocios con procesos
+              especiales.
             </span>
             <a
               href={brand.contact.whatsapp}
@@ -230,7 +300,8 @@ export default function Pricing() {
           transition={{ delay: 0.7 }}
           className="text-center text-xs text-slate-600 mt-5 max-w-xl mx-auto"
         >
-          Los precios se cotizan según el tipo de negocio, cantidad de mensajes, flujos requeridos e integraciones necesarias.
+          Los precios se cotizan según el tipo de negocio, cantidad de mensajes,
+          flujos requeridos e integraciones necesarias.
         </motion.p>
       </div>
     </section>
