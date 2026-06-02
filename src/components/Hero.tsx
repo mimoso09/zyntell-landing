@@ -161,7 +161,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
             className="relative flex justify-center lg:justify-end"
           >
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-md pb-16">
               {/* Main dashboard card */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
@@ -299,27 +299,26 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating calendar card */}
+              {/* Floating calendar card — hidden on small screens to avoid overflow */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.8, y: 8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                animate-y={[0, -6, 0]}
-                className="absolute -bottom-6 -left-6 glass rounded-xl p-3 w-48"
+                className="hidden sm:block absolute -bottom-4 -left-10 glass rounded-xl p-3 w-44"
                 style={{
                   boxShadow:
-                    "0 0 0 1px rgba(34,211,238,0.2), 0 20px 40px rgba(0,0,0,0.4)",
+                    "0 0 0 1px rgba(34,211,238,0.2), 0 20px 40px rgba(0,0,0,0.45)",
                   animation: "float-y 7s ease-in-out 1s infinite",
                 }}
               >
                 <div className="flex items-center gap-2 mb-2">
                   <div
-                    className="w-6 h-6 rounded-lg flex items-center justify-center"
+                    className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{ background: "linear-gradient(135deg,#22d3ee,#3b82f6)" }}
                   >
-                    <Check size={12} className="text-white" strokeWidth={3} />
+                    <Check size={11} className="text-white" strokeWidth={3} />
                   </div>
-                  <span className="text-xs font-semibold text-white">
+                  <span className="text-xs font-semibold text-white leading-tight">
                     Cita confirmada
                   </span>
                 </div>
@@ -337,12 +336,12 @@ export default function Hero() {
                 </div>
               </motion.div>
 
-              {/* Floating AI badge */}
+              {/* Floating AI badge — top right with clear separation */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.8, y: -8 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 1.5, duration: 0.5 }}
-                className="absolute -top-4 -right-4 glass rounded-xl px-3 py-2"
+                className="absolute -top-12 right-2 glass rounded-xl px-3 py-2"
                 style={{
                   boxShadow:
                     "0 0 0 1px rgba(16,185,129,0.3), 0 10px 30px rgba(0,0,0,0.4)",
