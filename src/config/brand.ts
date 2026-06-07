@@ -4,9 +4,9 @@
 
 export const brand = {
   name: "Zyntell",
-  tagline: "Automatización inteligente para negocios modernos.",
+  tagline: "Soluciones de inteligencia artificial para negocios modernos.",
   description:
-    "Creamos asistentes de IA para WhatsApp que transforman la atención al cliente.",
+    "Estudio de soluciones con IA: agentes de WhatsApp, automatización, páginas web, apps, dashboards, contenido y consultoría.",
 
   contact: {
     whatsapp: "https://wa.me/523324913241?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Zyntell%20para%20automatizar%20la%20atenci%C3%B3n%20de%20mi%20negocio%20con%20IA.",
@@ -16,6 +16,7 @@ export const brand = {
 
   nav: [
     { label: "Inicio", href: "#inicio" },
+    { label: "Servicios", href: "#servicios" },
     { label: "Soluciones", href: "#soluciones" },
     { label: "Cómo funciona", href: "#como-funciona" },
     { label: "Casos de uso", href: "#casos-de-uso" },
@@ -24,12 +25,63 @@ export const brand = {
   ],
 
   hero: {
-    badge: "Automatización con IA · Disponible 24/7",
-    headline: "Automatiza la atención de tu negocio con agentes de IA",
+    badge: "Soluciones con IA · WhatsApp, Web, Apps y más",
+    headline: "Automatiza y escala tu negocio con inteligencia artificial",
     subheadline:
-      "Creamos asistentes inteligentes para WhatsApp que responden clientes, agendan citas, conectan con Google Calendar y te dan un dashboard privado para controlar cada conversación.",
+      "Creamos agentes de WhatsApp, páginas web, aplicaciones, contenido y automatizaciones con IA para que tu negocio atienda mejor, venda más y reduzca tareas repetitivas.",
     cta1: "Solicitar demo",
     cta2: "Ver cómo funciona",
+  },
+
+  services: {
+    badge: "Servicios",
+    title: "Soluciones de IA para tu negocio",
+    subtitle:
+      "Diseñamos, implementamos y conectamos inteligencia artificial real a tu operación. Nuestro producto estrella son los agentes de WhatsApp, pero podemos automatizar mucho más.",
+    advantage:
+      "No solo instalamos herramientas: diseñamos, implementamos y conectamos soluciones de IA reales para cada negocio.",
+    items: [
+      {
+        icon: "MessageCircle",
+        title: "Agentes de IA para WhatsApp",
+        desc: "Asistentes inteligentes que responden clientes, toman datos, atienden preguntas frecuentes y permiten cambiar a modo humano desde un panel privado.",
+        featured: true,
+        tag: "Producto principal",
+      },
+      {
+        icon: "Workflow",
+        title: "Automatización de procesos",
+        desc: "Automatizamos tareas repetitivas como registro de clientes, seguimiento de pedidos, recordatorios, reportes, cotizaciones y respuestas frecuentes.",
+      },
+      {
+        icon: "Globe",
+        title: "Páginas web y landing pages",
+        desc: "Creamos sitios modernos, rápidos y optimizados para captar clientes, conectar formularios, WhatsApp y sistemas internos.",
+      },
+      {
+        icon: "LayoutDashboard",
+        title: "Aplicaciones y dashboards",
+        desc: "Desarrollamos paneles, sistemas internos y aplicaciones a la medida para controlar clientes, citas, ventas, mensajes y procesos.",
+      },
+      {
+        icon: "Video",
+        title: "Videos y contenido con IA",
+        desc: "Creamos videos, anuncios, piezas para redes sociales y contenido visual apoyado con inteligencia artificial para mejorar la presencia digital del negocio.",
+      },
+      {
+        icon: "Lightbulb",
+        title: "Consultoría de IA",
+        desc: "Analizamos tu negocio y detectamos oportunidades reales para aplicar inteligencia artificial sin complicarte con herramientas técnicas.",
+      },
+    ],
+    diagnosis: {
+      title: "¿Quieres automatizar otra parte de tu negocio?",
+      subtitle:
+        "Cuéntanos qué procesos te quitan más tiempo y diseñamos una solución con IA a tu medida.",
+      cta: "Solicitar diagnóstico",
+      message:
+        "Hola, quiero solicitar un diagnóstico para automatizar procesos de mi negocio con inteligencia artificial.",
+    },
   },
 
   problems: {
@@ -168,8 +220,9 @@ export const brand = {
   },
 
   pricing: {
+    eyebrow: "Planes para agentes de WhatsApp con IA",
     title: "Planes diseñados para cada etapa",
-    subtitle: "Sin contratos largos. Sin letra pequeña. Implementación rápida y soporte real.",
+    subtitle: "Los planes Básico y Profesional corresponden principalmente al Agente de WhatsApp con IA. Sin contratos largos. Sin letra pequeña.",
     plans: [
       {
         name: "Básico",

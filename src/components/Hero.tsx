@@ -84,11 +84,11 @@ export default function Hero() {
               className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-[1.1] tracking-tight mb-6"
               style={{ letterSpacing: "-0.03em" }}
             >
-              <span className="text-white">Automatiza la atención</span>
+              <span className="text-white">Automatiza y escala</span>
               <br />
-              <span className="gradient-text">de tu negocio</span>
+              <span className="text-white">tu negocio con</span>
               <br />
-              <span className="text-white">con agentes de IA</span>
+              <span className="gradient-text">inteligencia artificial</span>
             </motion.h1>
 
             {/* Subtitle */}

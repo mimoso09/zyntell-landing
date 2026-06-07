@@ -3,11 +3,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Check, Zap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { brand } from "@/config/brand";
-
-const WHATSAPP_NUMBER = "523324913241";
-
-const createWhatsAppLink = (message: string) =>
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+import { createWhatsAppLink } from "@/config/whatsapp";
 
 const planMessages: Record<string, string> = {
   Básico:
@@ -50,6 +46,12 @@ export default function Pricing() {
           className="text-center mb-16"
         >
           <span className="badge mb-4">Planes</span>
+          <p
+            className="text-sm sm:text-base font-semibold text-blue-300 mb-3 tracking-wide uppercase"
+            style={{ letterSpacing: "0.08em" }}
+          >
+            {brand.pricing.eyebrow}
+          </p>
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4"
             style={{ letterSpacing: "-0.03em" }}

@@ -3,6 +3,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Services from "@/components/Services";
 import Problems from "@/components/Problems";
 import Solutions from "@/components/Solutions";
 import HowItWorks from "@/components/HowItWorks";
@@ -26,6 +27,8 @@ export default function Home() {
         <Navbar />
         <main>
           <Hero />
+          <div className="section-divider mx-auto max-w-7xl" />
+          <Services />
           <div className="section-divider mx-auto max-w-7xl" />
           <Problems />
           <div className="section-divider mx-auto max-w-7xl" />
